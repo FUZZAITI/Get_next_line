@@ -31,12 +31,22 @@ int main(void)
 	n = read(fd, line, BUFFER_SIZE);
 	line[n] = '\0';
     aaa = ft_strjoin(aaa, line);
-	printf("%s", line);
+//	printf("%s", line);
     n = read(fd, line, BUFFER_SIZE);
 	line[n] = '\0';
     aaa = ft_strjoin(aaa, line);
-	printf("%s", line);
-    test(fd);
+//	printf("%s", line);
+	n = read(fd, line, BUFFER_SIZE);
+	line[n] = '\0';
+    aaa = ft_strjoin(aaa, line);
+//	printf("%s", line);
+	n = read(fd, line, BUFFER_SIZE);
+	line[n] = '\0';
+    aaa = ft_strjoin(aaa, line);
+//	printf("%s", line);
+	printf("\n");
+    printf("%s", aaa);
+
 	close(fd);
 	return (0);
 }
