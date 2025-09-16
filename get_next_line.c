@@ -18,7 +18,7 @@
 
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 15
+# define BUFFER_SIZE 20
 #endif
 
 char	*test(int fd);
@@ -35,6 +35,7 @@ int	main(void)
 		perror("open");
 		return (1);
 	}
+	line = malloc(BUFFER_SIZE + 1);
 	line = test(fd);
 	printf("%s", line);
 	free(line);
@@ -59,7 +60,7 @@ char	*test(int fd)
 	{
 		i++;
 	}
-	strncpy(result, buf, i);
-	free(buf);
-	return (result);
+//	strncpy(result, buf, i);
+//	free(buf);
+	return (buf);
 }
