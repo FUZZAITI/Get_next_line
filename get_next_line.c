@@ -18,49 +18,85 @@
 
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 20
+# define BUFFER_SIZE 50
 #endif
 
-char	*test(int fd);
-char	*ft_strncpy(char *dest, const char *src, size_t n);
+void test(int fd);
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlen(const char *s);
+void get_next_line(int fd);
 
-int	main(void)
+int main(void)
 {
 	int		fd;
 	char	*line;
-
+    int     n;
+    char   *aaa;
+	
+	
 	fd = open("text.txt", O_RDONLY);
 	if (fd < 0)
 	{
 		perror("open");
 		return (1);
 	}
-	line = malloc(BUFFER_SIZE + 1);
-	line = test(fd);
-	printf("%s", line);
-	free(line);
+	get_next_line(fd);
+
 	close(fd);
 	return (0);
 }
 
-char	*test(int fd)
+void get_next_line(int fd)
 {
-	char	*buf;
-	int		n;
-	int		i;
-	char	*result;
-
-	i = 0;
-	n = 0;
-	buf = malloc(BUFFER_SIZE + 1);
-	result = malloc(BUFFER_SIZE + 1);
-	n = read(fd, buf, BUFFER_SIZE);
-	buf[n] = '\0';
-	while (buf[i] != '\0' && buf[i] != '\n')
+	char	*line;
+    int     n;
+    char   *aaa;
+	int     ver;
+	
+	aaa = '\0';
+	ver = 0;
+	while (n != 0)
 	{
+		line = malloc(BUFFER_SIZE + 1);
+		n = read(fd, line, BUFFER_SIZE);
+		line[n] = '\0';
+    	aaa = ft_strjoin(aaa, line);
+	}
+	printf("%s", aaa);
+}
+
+
+size_t	ft_strlen(const char *s)
+{
+	size_t i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	size_t	len1 = ft_strlen(s1);
+	size_t	len2 = ft_strlen(s2);
+	char	*new_str;
+	size_t	i = 0;
+	size_t	j = 0;
+
+	new_str = malloc(len1 + len2 + 1);
+	if (!new_str)
+		return (NULL);
+	while (i < len1)
+	{
+		new_str[i] = s1[i];
 		i++;
 	}
-//	strncpy(result, buf, i);
-//	free(buf);
-	return (buf);
+	while (j < len2)
+		new_str[i++] = s2[j++];
+	new_str[i] = '\0';
+
+	if (s1)
+		free(s1);
+	return (new_str);
 }
