@@ -18,13 +18,15 @@
 
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 50
+# define BUFFER_SIZE 10
 #endif
 
 void test(int fd);
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *s);
 void get_next_line(int fd);
+int read_line(char *str, int n);
+
 
 int main(void)
 {
@@ -52,6 +54,7 @@ void get_next_line(int fd)
     int     n;
     char   *aaa;
 	int     ver;
+	static char	*rest;
 	
 	aaa = '\0';
 	ver = 0;
@@ -61,8 +64,24 @@ void get_next_line(int fd)
 		n = read(fd, line, BUFFER_SIZE);
 		line[n] = '\0';
     	aaa = ft_strjoin(aaa, line);
+	//	read_line(aaa, n);
 	}
 	printf("%s", aaa);
+	rest = aaa;
+}
+
+int read_line(char *str, int n)
+{
+	int i;
+	
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n' || str[i] == '\0')
+			return (i);
+		i++;	
+	}
+
 }
 
 
