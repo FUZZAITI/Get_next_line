@@ -126,12 +126,12 @@ char *gnl_save_rest(char *stash)
 
     while (stash[i] && stash[i] != '\n')
         i++;
-    if (!stash[i]) /* sem '\n', não sobra nada */
+    if (!stash[i])
     {
         free(stash);
         return NULL;
     }
-    i++; /* pula o '\n' */
+    i++;
     rest = malloc(gnl_strlen(stash + i) + 1);
     if (!rest)
     {
